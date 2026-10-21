@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon-180.png">
-  <meta name="theme-color" content="#0F6B78" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#F4F6F5" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0B1416" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="Lumi Sync">
   <meta property="og:description" content="Seu progresso, nos seus PCs. Backup ao fechar o jogo. A versão mais nova antes de abrir.">
@@ -17,73 +17,215 @@
   <style>
     /* Tokens: assets/brand/lumi-sync-tokens.json */
     :root {
-      --bg: #F4F6F5; --surface: #FFFFFF; --border: #D5DCDA; --text: #12201F; --muted: #4A5A58;
+      --bg: #F4F6F5; --surface: #FFFFFF; --border: #D5DCDA; --divider: #E6EAE9; --text: #12201F; --muted: #4A5A58;
       --primary: #0F6B78; --primary-hover: #0B5560; --on-primary: #FFFFFF; --sun: #BD7E00;
+      --ok: #0F6B78; --active: #3B7D23; --warning: #B5480F; --neutral: #5E6E6C;
       --warn-bg: #FBE7DA; --warn-fg: #8E360A;
+      --stage: #0B1416; --stage-node: #4CC9D6; --stage-sun: #F5B83D; --stage-arrow: #86D96B; --stage-text: #93A8A5;
+      --mono: "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0B1416; --surface: #111D20; --border: #22363A; --text: #E4EEEC; --muted: #93A8A5;
+        --bg: #0B1416; --surface: #111D20; --border: #22363A; --divider: #1B2C30; --text: #E4EEEC; --muted: #93A8A5;
         --primary: #4CC9D6; --primary-hover: #7ADBE3; --on-primary: #0B1416; --sun: #F5B83D;
+        --ok: #4CC9D6; --active: #86D96B; --warning: #F2884A; --neutral: #93A8A5;
         --warn-bg: #3D1E0C; --warn-fg: #F7B48A;
+        --stage: transparent;
       }
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, "Segoe UI", system-ui, sans-serif; }
-    main { max-width: 760px; margin: 0 auto; padding: 48px 16px 64px; }
-    .logo { height: 56px; width: auto; display: block; }
-    .logo-dark { display: none; }
-    @media (prefers-color-scheme: dark) { .logo-light { display: none; } .logo-dark { display: block; } }
-    h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.15; margin: 40px 0 8px; letter-spacing: -0.01em; }
-    h2 { font-size: 1.1rem; margin: 40px 0 8px; }
-    p.lead { color: var(--muted); font-size: 1.1rem; margin: 0 0 28px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
     a { color: var(--primary); }
-    .button { display: inline-block; background: var(--primary); color: var(--on-primary); padding: 12px 20px;
-              border-radius: 8px; text-decoration: none; font-weight: 600; }
+    .wrap { max-width: 1112px; margin: 0 auto; padding: 0 16px; }
+
+    /* Navegação */
+    nav { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .brand { display: flex; align-items: center; gap: 8px; color: var(--text); text-decoration: none; font-weight: 600; font-size: 15px; }
+    .brand svg { width: 24px; height: 24px; }
+    .brand span { color: var(--primary); font-weight: 500; }
+    nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+    nav ul a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+    nav ul a:hover { color: var(--primary); }
+
+    /* Abertura */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 56px 0 48px; }
+    .eyebrow { font: 600 12px/1 var(--mono); letter-spacing: .08em; color: var(--primary); margin: 0 0 18px; }
+    h1 { font-size: clamp(2.4rem, 5vw, 3.35rem); line-height: 1.06; letter-spacing: -.025em; margin: 0 0 18px; font-weight: 700; }
+    .lead { color: var(--muted); font-size: 17px; line-height: 1.6; margin: 0 0 22px; }
+    .button { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: var(--on-primary); padding: 12px 18px;
+              border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 15px; }
     .button:hover { background: var(--primary-hover); }
-    .file { color: var(--muted); font-size: .9rem; margin-top: 10px; }
-    .note { background: var(--warn-bg); color: var(--warn-fg); border-radius: 12px; padding: 14px 18px; margin-top: 24px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 4px 20px; }
-    ul { padding-left: 1.2rem; }
-    li { margin: 6px 0; }
-    li::marker { color: var(--sun); }
-    code { font-size: .9em; }
-    footer { margin-top: 48px; color: var(--muted); font-size: .9rem; }
+    .button svg { width: 16px; height: 16px; }
+    .meta { font: 12px/1 var(--mono); color: var(--muted); margin-top: 12px; }
+    .stage { background: var(--stage); border-radius: 10px; padding: 40px 24px; }
+    .stage svg { width: 100%; height: auto; display: block; }
+
+    /* Aviso do SmartScreen */
+    .warning { background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: 18px 20px;
+               display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; font-size: 14px; line-height: 1.55; }
+    .warning p { margin: 0; }
+    .warning strong { font-weight: 700; }
+
+    /* O que faz */
+    h2 { font-size: 32px; line-height: 1.2; letter-spacing: -.015em; margin: 0 0 20px; font-weight: 700; }
+    section { padding-top: 64px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px 20px 22px; }
+    .card.wide { grid-column: 1 / -1; }
+    .card svg { width: 72px; height: 22px; display: block; margin-bottom: 12px; }
+    .card h3 { margin: 0 0 8px; font-size: 16px; font-weight: 600; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+    /* Seus dados */
+    .data { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; }
+    .data h2 { margin-bottom: 4px; }
+    .data ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
+    .data li { position: relative; padding: 14px 0 14px 22px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 15px; line-height: 1.55; }
+    .data li::before { content: ""; position: absolute; left: 0; top: 21px; width: 10px; height: 10px; border-radius: 2.5px; background: var(--primary); }
+    .data li strong { color: var(--text); font-weight: 600; }
+    code { font: .92em var(--mono); }
+
+    footer { margin-top: 72px; border-top: 1px solid var(--border); padding: 24px 0 40px; display: flex; justify-content: space-between;
+             font-size: 13px; color: var(--muted); }
+    footer nav-links, footer .links { display: flex; gap: 16px; }
+
+    @media (max-width: 760px) {
+      nav { flex-direction: column; align-items: flex-start; justify-content: center; gap: 12px; height: auto; padding: 16px 0 0; }
+      .hero { grid-template-columns: 1fr; gap: 28px; padding: 32px 0 24px; }
+      .stage { padding: 8px 0; }
+      .warning { grid-template-columns: 1fr; }
+      .features { grid-template-columns: 1fr; }
+      .data { grid-template-columns: 1fr; gap: 20px; }
+      h2 { font-size: 26px; }
+    }
   </style>
 </head>
 <body>
-<main>
-  <img class="logo logo-light" src="logo-horizontal-claro.svg" alt="Lumi Sync">
-  <img class="logo logo-dark" src="logo-horizontal-escuro.svg" alt="Lumi Sync">
-
-  <h1>Seu progresso, nos seus PCs.</h1>
-  <p class="lead">Backup ao fechar o jogo. A versão mais nova antes de abrir. Tudo pelo seu próprio Google Drive.</p>
-
-  <a class="button" href="https://github.com/DevRicart/savesync-releases/releases/latest">Baixar para Windows</a>
-  <p class="file">Na página da versão, baixe <code>SaveSync.App-win-Setup.exe</code> e execute.</p>
-
-  <div class="note">
-    <strong>"O Windows protegeu o computador"</strong><br>
-    O instalador não tem assinatura de código (um certificado pago). Clique em <em>Mais informações</em> e depois em
-    <em>Executar assim mesmo</em>.
-  </div>
-
-  <h2>O que faz</h2>
-  <div class="card">
+<div class="wrap">
+  <nav>
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="9" fill="var(--sun)"/>
+        <g stroke="var(--sun)" stroke-width="3" stroke-linecap="round">
+          <path d="M46 32h3M41.9 41.9l2.12 2.12M32 46v3M22.1 41.9l-2.12 2.12M18 32h-3M22.1 22.1l-2.12-2.12M32 18v-3M41.9 22.1l2.12-2.12"/>
+        </g>
+        <g stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <path d="M11.33 24.48A22 22 0 0 1 52.67 24.48"/><path d="M52.67 39.52A22 22 0 0 1 11.33 39.52"/>
+        </g>
+        <path fill="var(--primary)" d="M53.7 27.29l1.28-5.25-5.64 2.05zM10.3 36.71l-1.28 5.25 5.64-2.05z"/>
+      </svg>
+      Lumi <span>Sync</span>
+    </a>
     <ul>
-      <li>Faz backup do save quando você fecha o jogo e restaura o mais recente antes de abrir (pela Steam ou pelo Prism Launcher).</li>
-      <li>Avisa quando dois PCs têm progresso diferente, em vez de sobrescrever um com o outro.</li>
-      <li>Guarda as versões anteriores, com notas, para voltar no tempo.</li>
-      <li>Minecraft: avisa quando o mundo foi salvo com versão ou mods diferentes da sua instância.</li>
-      <li>Atualiza sozinho.</li>
+      <li><a href="#o-que-faz">O que faz</a></li>
+      <li><a href="#seus-dados">Seus dados</a></li>
+      <li><a href="privacy.html">Privacidade</a></li>
     </ul>
+  </nav>
+
+  <div class="hero">
+    <div>
+      <p class="eyebrow">PROJECT ZOMBOID · MINECRAFT · OUTROS</p>
+      <h1>Seu progresso, nos seus PCs.</h1>
+      <p class="lead">O Lumi Sync faz backup dos seus saves no seu Google Drive quando o jogo fecha e traz a versão mais nova antes de ele abrir. Sem sobrescrever um save bom com um velho.</p>
+      <a class="button" href="https://github.com/DevRicart/savesync-releases/releases/latest/download/SaveSync.App-win-Setup.exe">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 2v8M4.5 6.8 8 10.3l3.5-3.5M2.5 13.5h11"/>
+        </svg>
+        Baixar a versão mais recente
+      </a>
+      <p class="meta"><span id="version">Versão mais recente</span> · Windows 10 e 11 · 64 bits</p>
+    </div>
+    <div class="stage" aria-label="desktop envia para o seu Drive; laptop baixa do seu Drive">
+      <svg viewBox="0 0 440 112" font-family="JetBrains Mono, Consolas, monospace" font-size="15">
+        <rect x="30" y="16" width="58" height="58" rx="10" fill="var(--stage-node)"/>
+        <rect x="352" y="16" width="58" height="58" rx="10" fill="var(--stage-node)"/>
+        <circle cx="220" cy="45" r="31" fill="var(--stage-sun)"/>
+        <g stroke="var(--stage-arrow)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M88 45h96M173 34l11 11-11 11"/>
+          <path d="M352 45h-96M267 34l-11 11 11 11"/>
+        </g>
+        <g fill="var(--stage-text)" text-anchor="middle">
+          <text x="59" y="104">desktop</text><text x="220" y="104">seu Drive</text><text x="381" y="104">laptop</text>
+        </g>
+      </svg>
+    </div>
   </div>
 
-  <h2>Seus dados</h2>
-  <p>Os saves ficam numa pasta no <strong>seu</strong> Google Drive. O Lumi Sync só enxerga os arquivos que ele mesmo criou.
-    Veja a <a href="privacy.html">política de privacidade</a>.</p>
+  <div class="warning">
+    <p><strong>O Windows pode dizer que o app é desconhecido</strong><br>
+      O instalador ainda não tem assinatura digital, então o SmartScreen pode mostrar um aviso na primeira vez.</p>
+    <p>Clique em <strong>Mais informações</strong> e depois em <strong>Executar assim mesmo</strong>.</p>
+  </div>
 
-  <footer>Lumi Sync · Project Zomboid · Minecraft</footer>
-</main>
+  <section id="o-que-faz">
+    <h2>O que faz</h2>
+    <div class="features">
+      <div class="card">
+        <svg viewBox="0 0 72 22" aria-hidden="true">
+          <rect x="1" y="4" width="14" height="14" rx="3.5" fill="var(--ok)"/>
+          <path d="M15 11h38M47 5.5l6 5.5-6 5.5" stroke="var(--active)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="63" cy="11" r="6.2" fill="none" stroke="var(--ok)" stroke-width="2.4"/>
+        </svg>
+        <h3>Backup quando o jogo fecha</h3>
+        <p>Você fecha o jogo e o save vai para o seu Google Drive como uma nova versão.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 72 22" aria-hidden="true">
+          <rect x="2.2" y="5.2" width="11.6" height="11.6" rx="3" fill="none" stroke="var(--ok)" stroke-width="2.4"/>
+          <path d="M57 11H19M25 5.5 19 11l6 5.5" stroke="var(--active)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="63" cy="11" r="7.2" fill="var(--ok)"/>
+        </svg>
+        <h3>A versão mais nova antes de abrir</h3>
+        <p>Ao abrir o jogo em outro PC, o Lumi Sync traz o save mais novo primeiro.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 72 22" aria-hidden="true">
+          <rect x="1" y="4" width="14" height="14" rx="3.5" fill="var(--ok)"/>
+          <path d="M15 11h14l3.5-5 5 10 3.5-5h15" stroke="var(--warning)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="63" cy="11" r="7.2" fill="var(--ok)"/>
+        </svg>
+        <h3>Conflito sem perder nada</h3>
+        <p>Se os dois PCs mudaram, você escolhe qual continua. O outro fica guardado.</p>
+      </div>
+      <div class="card wide">
+        <svg viewBox="0 0 72 22" aria-hidden="true">
+          <path d="M8 11h56" stroke="var(--neutral)" stroke-width="2" opacity=".55"/>
+          <circle cx="8" cy="11" r="5" fill="var(--surface)" stroke="var(--neutral)" stroke-width="2.2"/>
+          <circle cx="27" cy="11" r="5.5" fill="var(--sun)"/>
+          <rect x="40.5" y="5.5" width="11" height="11" rx="2.5" fill="var(--ok)"/>
+          <circle cx="64" cy="11" r="5" fill="var(--surface)" stroke="var(--neutral)" stroke-width="2.2"/>
+        </svg>
+        <h3>Histórico de versões</h3>
+        <p>Volte para qualquer versão, fixe as importantes e anote o que aconteceu.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="seus-dados" class="data">
+    <div>
+      <h2>Seus dados</h2>
+      <a href="privacy.html">Ler a política de privacidade</a>
+    </div>
+    <ul>
+      <li><strong>Os saves vão para o seu Google Drive</strong> numa pasta que o Lumi Sync cria. Não existe servidor do Lumi Sync no caminho.</li>
+      <li><strong>Acesso só à pasta do app</strong> o Lumi Sync não lê nem altera outros arquivos do seu Drive.</li>
+      <li><strong>Cópias de segurança ficam no seu PC</strong> em <code>%LOCALAPPDATA%\SaveSync</code>. Nada disso sai do computador.</li>
+      <li><strong>Sem conta, sem anúncios, sem rastreamento</strong> você pode desconectar o Drive e apagar a pasta quando quiser.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Lumi Sync</span>
+    <span class="links"><a href="privacy.html">Privacidade</a><a href="https://github.com/DevRicart/savesync-releases/releases">Versões</a></span>
+  </footer>
+</div>
+<script>
+  // Versão da última release (o botão já baixa sempre a mais recente).
+  fetch("https://api.github.com/repos/DevRicart/savesync-releases/releases/latest")
+    .then(r => r.ok ? r.json() : null)
+    .then(r => { if (r && r.tag_name) document.getElementById("version").textContent = r.tag_name; })
+    .catch(() => {});
+</script>
 </body>
 </html>

@@ -8,54 +8,109 @@
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+  <meta name="theme-color" content="#F4F6F5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B1416" media="(prefers-color-scheme: dark)">
   <style>
-    :root { --bg: #F4F6F5; --fg: #12201F; --muted: #4A5A58; --accent: #0F6B78; }
-    @media (prefers-color-scheme: dark) { :root { --bg: #0B1416; --fg: #E4EEEC; --muted: #93A8A5; --accent: #4CC9D6; } }
-    .logo { height: 40px; display: block; margin-bottom: 24px; }
-    .logo-dark { display: none; }
-    @media (prefers-color-scheme: dark) { .logo-light { display: none; } .logo-dark { display: block; } }
-    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 Inter, "Segoe UI", system-ui, sans-serif; }
-    main { max-width: 720px; margin: 0 auto; padding: 48px 16px; }
-    h1 { font-size: 1.8rem; margin: 0 0 .25rem; }
-    h2 { font-size: 1.1rem; margin: 2rem 0 .5rem; }
-    p.lead, footer { color: var(--muted); }
-    a { color: var(--accent); }
-    ul { padding-left: 1.2rem; }
+    :root {
+      --bg: #F4F6F5; --border: #D5DCDA; --text: #12201F; --muted: #4A5A58; --primary: #0F6B78; --sun: #BD7E00; --code: #E3EAE8;
+      --mono: "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0B1416; --border: #22363A; --text: #E4EEEC; --muted: #93A8A5; --primary: #4CC9D6; --sun: #F5B83D; --code: #1A2C30; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+    a { color: var(--primary); }
+    .wrap { max-width: 1112px; margin: 0 auto; padding: 0 16px; }
+    nav { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .brand { display: flex; align-items: center; gap: 8px; color: var(--text); text-decoration: none; font-weight: 600; font-size: 15px; }
+    .brand svg { width: 24px; height: 24px; }
+    .brand span { color: var(--primary); font-weight: 500; }
+    nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+    nav ul a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+    nav ul a:hover { color: var(--primary); }
+    main { max-width: 640px; padding: 40px 0 24px; }
+    .updated { font: 12px/1 var(--mono); color: var(--muted); margin: 0 0 12px; }
+    h1 { font-size: clamp(2.1rem, 5vw, 2.6rem); line-height: 1.1; letter-spacing: -.025em; margin: 0 0 14px; font-weight: 700; }
+    .lead { color: var(--muted); font-size: 17px; margin: 0; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    section { padding: 22px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: 0; }
+    h2 { font-size: 19px; margin: 0 0 8px; font-weight: 600; }
+    section p { margin: 0; color: var(--muted); font-size: 15px; }
+    code { font: 13px var(--mono); background: var(--code); color: var(--text); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+    footer { margin-top: 48px; border-top: 1px solid var(--border); padding: 24px 0 40px; display: flex; justify-content: space-between;
+             font-size: 13px; color: var(--muted); }
+    @media (max-width: 760px) {
+      nav { flex-direction: column; align-items: flex-start; justify-content: center; gap: 12px; height: auto; padding: 16px 0 0; }
+      main { padding-top: 28px; }
+      code { white-space: normal; word-break: break-all; }
+    }
   </style>
 </head>
 <body>
-<main>
-  <a href="index.html"><img class="logo logo-light" src="logo-horizontal-claro.svg" alt="Lumi Sync"><img class="logo logo-dark" src="logo-horizontal-escuro.svg" alt="Lumi Sync"></a>
-  <h1>Política de privacidade</h1>
-  <p class="lead">Lumi Sync · atualizada em 21/10/2026</p>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="9" fill="var(--sun)"/>
+        <g stroke="var(--sun)" stroke-width="3" stroke-linecap="round">
+          <path d="M46 32h3M41.9 41.9l2.12 2.12M32 46v3M22.1 41.9l-2.12 2.12M18 32h-3M22.1 22.1l-2.12-2.12M32 18v-3M41.9 22.1l2.12-2.12"/>
+        </g>
+        <g stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <path d="M11.33 24.48A22 22 0 0 1 52.67 24.48"/><path d="M52.67 39.52A22 22 0 0 1 11.33 39.52"/>
+        </g>
+        <path fill="var(--primary)" d="M53.7 27.29l1.28-5.25-5.64 2.05zM10.3 36.71l-1.28 5.25 5.64-2.05z"/>
+      </svg>
+      Lumi <span>Sync</span>
+    </a>
+    <ul>
+      <li><a href="index.html#o-que-faz">O que faz</a></li>
+      <li><a href="index.html#seus-dados">Seus dados</a></li>
+      <li><a href="privacy.html">Privacidade</a></li>
+    </ul>
+  </nav>
 
-  <h2>O que o Lumi Sync acessa</h2>
-  <ul>
-    <li><strong>Google Drive, com a permissão <code>drive.file</code></strong>: o Lumi Sync só consegue ver e alterar os arquivos que
-      ele mesmo criou (a pasta <code>SaveSync</code> com os seus saves). Ele não lê nenhum outro arquivo do seu Drive.</li>
-    <li><strong>Seu endereço de e-mail do Google</strong>: lido apenas para mostrar qual conta está conectada.</li>
-    <li><strong>Pastas de saves no seu computador</strong>: as que você escolher sincronizar.</li>
-  </ul>
+  <main>
+    <p class="updated">Atualizada em 21/10/2026</p>
+    <h1>Política de privacidade</h1>
+    <p class="lead">O Lumi Sync guarda os seus saves na sua conta. Esta página explica exatamente o que ele acessa e o que fica onde.</p>
 
-  <h2>Para onde os dados vão</h2>
-  <ul>
-    <li>Os saves vão <strong>somente para o seu Google Drive</strong>. Não existe servidor do Lumi Sync: nenhum dado é enviado
-      ao desenvolvedor ou a terceiros.</li>
-    <li>O login do Google fica guardado no seu computador, cifrado pelo Windows (só o seu usuário consegue ler).</li>
-    <li>As verificações de atualização consultam o GitHub (<code>github.com/DevRicart/savesync-releases</code>), sem enviar dados pessoais.</li>
-  </ul>
+    <section>
+      <h2>O que o Lumi Sync acessa</h2>
+      <p>Somente a pasta que ele cria no seu Google Drive, pelo escopo <code>drive.file</code>. Ele não consegue ver nem alterar outros
+        arquivos da sua conta. O seu e-mail do Google é lido só para mostrar qual conta está conectada.</p>
+    </section>
+    <section>
+      <h2>O que é enviado</h2>
+      <p>As pastas de save que você cadastrou, compactadas, junto com o nome da máquina, a data, o tamanho e, no Minecraft, a versão do
+        jogo, o loader e a lista de mods.</p>
+    </section>
+    <section>
+      <h2>Onde os dados ficam</h2>
+      <p>Na sua conta do Google Drive e no seu PC. O Lumi Sync não tem servidor próprio e não recebe cópia de nada. O login do Google
+        fica no seu computador, cifrado pelo Windows. A verificação de atualizações só consulta o GitHub, sem enviar dados pessoais.</p>
+    </section>
+    <section>
+      <h2>Cópias de segurança</h2>
+      <p>Antes de cada restauração, o save local é copiado para <code>%LOCALAPPDATA%\SaveSync\safety</code>. Essas cópias nunca saem do
+        computador.</p>
+    </section>
+    <section>
+      <h2>Como apagar tudo</h2>
+      <p>Saia da conta em Configurações (isso revoga o acesso), apague a pasta <code>SaveSync</code> no seu Drive e a pasta
+        <code>%LOCALAPPDATA%\SaveSync</code> no seu PC. O acesso também pode ser removido em
+        <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
+    </section>
+    <section>
+      <h2>Contato</h2>
+      <p>Abra uma issue em <a href="https://github.com/DevRicart/savesync-releases/issues">github.com/DevRicart/savesync-releases</a>.</p>
+    </section>
+  </main>
 
-  <h2>Como remover</h2>
-  <ul>
-    <li>No Lumi Sync: Configurações → <em>Sair</em> do Google (revoga o acesso).</li>
-    <li>Ou em <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, remova o acesso do Lumi Sync.</li>
-    <li>Para apagar os saves da nuvem, apague a pasta <code>SaveSync</code> do seu Google Drive.</li>
-  </ul>
-
-  <h2>Contato</h2>
-  <p>Dúvidas: abra uma issue em <a href="https://github.com/DevRicart/savesync-releases/issues">github.com/DevRicart/savesync-releases</a>.</p>
-
-  <footer><a href="index.html">← Lumi Sync</a></footer>
-</main>
+  <footer>
+    <span>Lumi Sync</span>
+    <a href="index.html">Voltar ao início</a>
+  </footer>
+</div>
 </body>
 </html>
