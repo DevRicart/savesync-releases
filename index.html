@@ -3,33 +3,64 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SaveSync</title>
-  <meta name="description" content="Sincroniza saves de jogos entre os seus PCs pelo seu Google Drive.">
+  <title>Lumi Sync</title>
+  <meta name="description" content="Seu progresso, nos seus PCs. Backup ao fechar o jogo, a versão mais nova antes de abrir — pelo seu Google Drive.">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+  <meta name="theme-color" content="#0F6B78" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B1416" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Lumi Sync">
+  <meta property="og:description" content="Seu progresso, nos seus PCs. Backup ao fechar o jogo. A versão mais nova antes de abrir.">
+  <meta property="og:image" content="https://devricart.github.io/savesync-releases/imagem-social-1280x640.png">
+  <meta name="twitter:card" content="summary_large_image">
   <style>
-    :root { --bg: #ffffff; --fg: #1f2328; --muted: #59636e; --accent: #2563eb; --card: #f6f8fa; --line: #d1d9e0; }
+    /* Tokens: assets/brand/lumi-sync-tokens.json */
+    :root {
+      --bg: #F4F6F5; --surface: #FFFFFF; --border: #D5DCDA; --text: #12201F; --muted: #4A5A58;
+      --primary: #0F6B78; --primary-hover: #0B5560; --on-primary: #FFFFFF; --sun: #BD7E00;
+      --warn-bg: #FBE7DA; --warn-fg: #8E360A;
+    }
     @media (prefers-color-scheme: dark) {
-      :root { --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --accent: #4493f8; --card: #161b22; --line: #30363d; }
+      :root {
+        --bg: #0B1416; --surface: #111D20; --border: #22363A; --text: #E4EEEC; --muted: #93A8A5;
+        --primary: #4CC9D6; --primary-hover: #7ADBE3; --on-primary: #0B1416; --sun: #F5B83D;
+        --warn-bg: #3D1E0C; --warn-fg: #F7B48A;
+      }
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
-    main { max-width: 720px; margin: 0 auto; padding: 48px 16px; }
-    h1 { font-size: 2rem; margin: 0 0 .25rem; }
-    h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
-    p.lead { color: var(--muted); margin-top: 0; }
-    a { color: var(--accent); }
-    .button { display: inline-block; background: var(--accent); color: #fff; padding: .6rem 1.1rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
-    .note { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, "Segoe UI", system-ui, sans-serif; }
+    main { max-width: 760px; margin: 0 auto; padding: 48px 16px 64px; }
+    .logo { height: 56px; width: auto; display: block; }
+    .logo-dark { display: none; }
+    @media (prefers-color-scheme: dark) { .logo-light { display: none; } .logo-dark { display: block; } }
+    h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.15; margin: 40px 0 8px; letter-spacing: -0.01em; }
+    h2 { font-size: 1.1rem; margin: 40px 0 8px; }
+    p.lead { color: var(--muted); font-size: 1.1rem; margin: 0 0 28px; }
+    a { color: var(--primary); }
+    .button { display: inline-block; background: var(--primary); color: var(--on-primary); padding: 12px 20px;
+              border-radius: 8px; text-decoration: none; font-weight: 600; }
+    .button:hover { background: var(--primary-hover); }
+    .file { color: var(--muted); font-size: .9rem; margin-top: 10px; }
+    .note { background: var(--warn-bg); color: var(--warn-fg); border-radius: 12px; padding: 14px 18px; margin-top: 24px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 4px 20px; }
     ul { padding-left: 1.2rem; }
-    footer { margin-top: 3rem; color: var(--muted); font-size: .9rem; }
+    li { margin: 6px 0; }
+    li::marker { color: var(--sun); }
+    code { font-size: .9em; }
+    footer { margin-top: 48px; color: var(--muted); font-size: .9rem; }
   </style>
 </head>
 <body>
 <main>
-  <h1>SaveSync</h1>
-  <p class="lead">Sincroniza saves de jogos entre os seus PCs, pelo seu próprio Google Drive.</p>
+  <img class="logo logo-light" src="logo-horizontal-claro.svg" alt="Lumi Sync">
+  <img class="logo logo-dark" src="logo-horizontal-escuro.svg" alt="Lumi Sync">
 
-  <p><a class="button" href="https://github.com/DevRicart/savesync-releases/releases/latest">Baixar a versão mais recente</a></p>
-  <p>No Windows, baixe o arquivo <code>SaveSync.App-win-Setup.exe</code> da versão mais recente e execute.</p>
+  <h1>Seu progresso, nos seus PCs.</h1>
+  <p class="lead">Backup ao fechar o jogo. A versão mais nova antes de abrir. Tudo pelo seu próprio Google Drive.</p>
+
+  <a class="button" href="https://github.com/DevRicart/savesync-releases/releases/latest">Baixar para Windows</a>
+  <p class="file">Na página da versão, baixe <code>SaveSync.App-win-Setup.exe</code> e execute.</p>
 
   <div class="note">
     <strong>"O Windows protegeu o computador"</strong><br>
@@ -38,19 +69,21 @@
   </div>
 
   <h2>O que faz</h2>
-  <ul>
-    <li>Faz backup do save quando você fecha o jogo e restaura o mais recente antes de abrir (pela Steam ou pelo Prism Launcher).</li>
-    <li>Avisa quando dois PCs têm progresso diferente, em vez de sobrescrever um com o outro.</li>
-    <li>Guarda as versões anteriores, com notas, para voltar no tempo.</li>
-    <li>Minecraft: avisa quando o mundo foi salvo com versão ou mods diferentes da sua instância.</li>
-    <li>Atualiza sozinho.</li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li>Faz backup do save quando você fecha o jogo e restaura o mais recente antes de abrir (pela Steam ou pelo Prism Launcher).</li>
+      <li>Avisa quando dois PCs têm progresso diferente, em vez de sobrescrever um com o outro.</li>
+      <li>Guarda as versões anteriores, com notas, para voltar no tempo.</li>
+      <li>Minecraft: avisa quando o mundo foi salvo com versão ou mods diferentes da sua instância.</li>
+      <li>Atualiza sozinho.</li>
+    </ul>
+  </div>
 
   <h2>Seus dados</h2>
-  <p>Os saves ficam numa pasta <code>SaveSync</code> no <strong>seu</strong> Google Drive. O SaveSync só enxerga os arquivos
-    que ele mesmo criou. Veja a <a href="privacy.html">política de privacidade</a>.</p>
+  <p>Os saves ficam numa pasta no <strong>seu</strong> Google Drive. O Lumi Sync só enxerga os arquivos que ele mesmo criou.
+    Veja a <a href="privacy.html">política de privacidade</a>.</p>
 
-  <footer>SaveSync · projeto pessoal</footer>
+  <footer>Lumi Sync · Project Zomboid · Minecraft</footer>
 </main>
 </body>
 </html>
