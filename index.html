@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaveSync</title>
+  <meta name="description" content="Sincroniza saves de jogos entre os seus PCs pelo seu Google Drive.">
+  <style>
+    :root { --bg: #ffffff; --fg: #1f2328; --muted: #59636e; --accent: #2563eb; --card: #f6f8fa; --line: #d1d9e0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --accent: #4493f8; --card: #161b22; --line: #30363d; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { max-width: 720px; margin: 0 auto; padding: 48px 16px; }
+    h1 { font-size: 2rem; margin: 0 0 .25rem; }
+    h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+    p.lead { color: var(--muted); margin-top: 0; }
+    a { color: var(--accent); }
+    .button { display: inline-block; background: var(--accent); color: #fff; padding: .6rem 1.1rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    .note { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+    ul { padding-left: 1.2rem; }
+    footer { margin-top: 3rem; color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>SaveSync</h1>
+  <p class="lead">Sincroniza saves de jogos entre os seus PCs, pelo seu próprio Google Drive.</p>
+
+  <p><a class="button" href="https://github.com/DevRicart/savesync-releases/releases/latest">Baixar a versão mais recente</a></p>
+  <p>No Windows, baixe o arquivo <code>SaveSync.App-win-Setup.exe</code> da versão mais recente e execute.</p>
+
+  <div class="note">
+    <strong>"O Windows protegeu o computador"</strong><br>
+    O instalador não tem assinatura de código (um certificado pago). Clique em <em>Mais informações</em> e depois em
+    <em>Executar assim mesmo</em>.
+  </div>
+
+  <h2>O que faz</h2>
+  <ul>
+    <li>Faz backup do save quando você fecha o jogo e restaura o mais recente antes de abrir (pela Steam ou pelo Prism Launcher).</li>
+    <li>Avisa quando dois PCs têm progresso diferente, em vez de sobrescrever um com o outro.</li>
+    <li>Guarda as versões anteriores, com notas, para voltar no tempo.</li>
+    <li>Minecraft: avisa quando o mundo foi salvo com versão ou mods diferentes da sua instância.</li>
+    <li>Atualiza sozinho.</li>
+  </ul>
+
+  <h2>Seus dados</h2>
+  <p>Os saves ficam numa pasta <code>SaveSync</code> no <strong>seu</strong> Google Drive. O SaveSync só enxerga os arquivos
+    que ele mesmo criou. Veja a <a href="privacy.html">política de privacidade</a>.</p>
+
+  <footer>SaveSync · projeto pessoal</footer>
+</main>
+</body>
+</html>
