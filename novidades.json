@@ -1,0 +1,36 @@
+[
+  {
+    "version": "0.10.0",
+    "date": "2026-11-08",
+    "items": [
+      "Nova aba **Atualização**: mostra quando há uma versão nova (bolinha verde) e o que mudou nas últimas versões.",
+      "Botão **Atualizar agora** dentro do app, sem precisar ir ao ícone da bandeja.",
+      "Depois de atualizar, o Lumi Sync abre a janela de novo sozinho."
+    ]
+  },
+  {
+    "version": "0.9.9",
+    "date": "2026-11-08",
+    "items": [
+      "Quando o Google Drive está cheio, o aviso aparece em português e pede um **OK**, em vez de uma mensagem técnica em inglês.",
+      "Com o Drive cheio, o envio falha na hora em vez de tentar de novo por 2 minutos."
+    ]
+  },
+  {
+    "version": "0.9.8",
+    "date": "2026-11-07",
+    "items": [
+      "Corrigida a falha de envio de saves grandes quando o login do Google era renovado no meio do caminho.",
+      "Envios interrompidos continuam de onde pararam (até 5 tentativas).",
+      "A mensagem de erro agora mostra o motivo da falha."
+    ]
+  },
+  {
+    "version": "0.9.7",
+    "date": "2026-11-03",
+    "items": [
+      "**Remover…** pergunta o que apagar: tirar da lista deste PC, mandar a pasta para a Lixeira e/ou apagar as versões da nuvem.",
+      "Saves ocultos podem voltar para a lista com **Mostrar**."
+    ]
+  }
+]
